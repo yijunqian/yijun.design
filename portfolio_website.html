@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 30%, #f1f5f9 100%);
+            color: #1e293b;
+            overflow-x: hidden;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Abstract background shapes */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #e2e8f0, #cbd5e1);
+            opacity: 0.3;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            left: -5%;
+            animation-delay: -7s;
+        }
+
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 20%;
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(90deg); }
+            50% { transform: translateY(-60px) rotate(180deg); }
+            75% { transform: translateY(-30px) rotate(270deg); }
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #0f172a;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .photo-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .photo-container::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #6366f1, #8b5cf6, #ec4899);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-photo:hover .photo-container::before {
+            opacity: 1;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #f1f5f9;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #0f172a 0%, #374151 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(30, 41, 59, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(30, 41, 59, 0.4);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #0f172a;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.125rem;
+            color: #64748b;
+            margin-bottom: 5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.15);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-image::after {
+            content: '🎨';
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #0f172a;
+            letter-spacing: -0.01em;
+        }
+
+        .project-card p {
+            color: #64748b;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            color: #1e293b;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .submit-btn {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(30, 41, 59, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(30, 41, 59, 0.4);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-size: 1.5rem;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Research Section */
+        .research {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .research-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .research-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .research-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .research-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .research-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .research-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .research-meta {
+            color: #6366f1;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .research-card p:not(.research-meta) {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .research-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .research-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.2);
+        }
+
+        .close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            background: #e2e8f0;
+            color: #374151;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects,
+            .contact,
+            .research {
+                padding: 4rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Shapes -->
+    <div class="bg-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="profile-photo">
+                <div class="photo-container">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><rect width='180' height='180' fill='%23f1f5f9'/><text x='90' y='90' text-anchor='middle' dy='.3em' fill='%2364748b' font-size='48'>👤</text></svg>" alt="Your Photo">
+                </div>
+            </div>
+            <h1>Your Name</h1>
+            <p>I'm a passionate UX Designer and Front-end Developer who believes in creating beautiful, functional experiences that make a difference. I combine creativity with technical expertise to bring ideas to life.</p>
+            <a href="#projects" class="cta-button">Explore My Work</a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <h2 class="section-title">Featured Work</h2>
+        <p class="section-subtitle">A collection of projects that showcase my passion for design, technology, and user experience.</p>
+        
+        <div class="projects-grid">
+            <div class="project-card" onclick="openModal('project1')">
+                <div class="project-image"></div>
+                <h3>Creative Dashboard</h3>
+                <p>A modern analytics platform that transforms complex data into beautiful, actionable insights through intuitive design and seamless interactions.</p>
+            </div>
+            
+            <div class="project-card" onclick="openModal('project2')">
+                <div class="project-image"></div>
+                <h3>Mobile Commerce</h3>
+                <p>Reimagining the shopping experience with a focus on simplicity, accessibility, and delightful micro-interactions that drive engagement.</p>
+            </div>
+            
+            <div class="project-card" onclick="openModal('project3')">
+                <div class="project-image"></div>
+                <h3>Smart Interface</h3>
+                <p>An intelligent system that adapts to user behavior, providing personalized experiences while maintaining elegant simplicity in design.</p>
+            </div>
+            
+            <div class="project-card" onclick="openModal('project4')">
+                <div class="project-image"></div>
+                <h3>Digital Experience</h3>
+                <p>Bridging the gap between digital and physical worlds through immersive design that tells compelling stories and creates lasting connections.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section class="research" id="research">
+        <div class="research-content">
+            <h2 class="section-title">Research Highlights</h2>
+            <p class="section-subtitle">Exploring the intersection of human behavior, technology, and design through evidence-based research and academic contributions.</p>
+            
+            <div class="research-grid">
+                <div class="research-card">
+                    <div class="research-icon">📊</div>
+                    <h3>Pattern Language for Motion Control Games</h3>
+                    <p class="research-meta">CHI 2026 Conference Paper</p>
+                    <p>Bridging the gap between research and practice in motion control game design for cognitive interventions in older adults through systematic pattern language methodology.</p>
+                    <div class="research-tags">
+                        <span class="tag">HCI</span>
+                        <span class="tag">Pattern Language</span>
+                        <span class="tag">Aging</span>
+                        <span class="tag">Game Design</span>
+                    </div>
+                </div>
+                
+                <div class="research-card">
+                    <div class="research-icon">🎮</div>
+                    <h3>Embodied Cognition in Gaming</h3>
+                    <p class="research-meta">Systematic Literature Review</p>
+                    <p>Investigating how physical movement in gaming environments enhances cognitive function and neuroplasticity, with implications for therapeutic applications.</p>
+                    <div class="research-tags">
+                        <span class="tag">Embodied Cognition</span>
+                        <span class="tag">Neuroplasticity</span>
+                        <span class="tag">Exergames</span>
+                        <span class="tag">Therapy</span>
+                    </div>
+                </div>
+                
+                <div class="research-card">
+                    <div class="research-icon">🔬</div>
+                    <h3>Co-Design in Technology Development</h3>
+                    <p class="research-meta">Journal Publication</p>
+                    <p>Exploring Experience-Based Co-Design (EBCD) methodologies for developing inclusive technology solutions that address real-world user needs.</p>
+                    <div class="research-tags">
+                        <span class="tag">Co-Design</span>
+                        <span class="tag">EBCD</span>
+                        <span class="tag">Inclusive Design</span>
+                        <span class="tag">Methodology</span>
+                    </div>
+                </div>
+                
+                <div class="research-card">
+                    <div class="research-icon">🏃‍♂️</div>
+                    <h3>Postural Assessment Technology</h3>
+                    <p class="research-meta">Applied Research Project</p>
+                    <p>Developing AI-powered postural assessment systems for injury prediction in athletes, combining biomechanical analysis with machine learning approaches.</p>
+                    <div class="research-tags">
+                        <span class="tag">Biomechanics</span>
+                        <span class="tag">AI/ML</span>
+                        <span class="tag">Sports Medicine</span>
+                        <span class="tag">Injury Prevention</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-content">
+            <h2 class="section-title">Let's Create Together</h2>
+            <p class="section-subtitle">Have a project in mind? I'd love to hear about it and discuss how we can bring your vision to life.</p>
+            
+            <form class="contact-form" onsubmit="sendEmail(event)">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required placeholder="Tell me about your project..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+            
+            <div class="social-links">
+                <a href="mailto:your.email@example.com" title="Email" aria-label="Send Email">✉️</a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile">💼</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="close" onclick="closeModal()" aria-label="Close modal">×</div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Project data
+        const projects = {
+            project1: {
+                title: "Creative Dashboard",
+                details: `
+                    <h2 style="color: #0f172a; margin-bottom: 2rem;">Creative Dashboard</h2>
+                    <div style="margin: 2rem 0; line-height: 1.7;">
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Project Overview</h3>
+                        <p style="color: #64748b; margin-bottom: 2rem;">A comprehensive analytics platform that transforms raw data into meaningful insights through thoughtful design and intuitive user experience. The dashboard empowers users to make data-driven decisions with confidence.</p>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Design Philosophy</h3>
+                        <ul style="margin-left: 1.5rem; color: #64748b; line-height: 1.8;">
+                            <li>Clean, minimalist interface that reduces cognitive load</li>
+                            <li>Progressive disclosure of information based on user needs</li>
+                            <li>Consistent visual hierarchy and typography system</li>
+                            <li>Accessible design following WCAG 2.1 guidelines</li>
+                            <li>Mobile-first responsive design approach</li>
+                        </ul>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Technical Implementation</h3>
+                        <p style="color: #64748b; margin-bottom: 1rem;">Built with modern web technologies: React.js, TypeScript, D3.js for visualizations, Tailwind CSS for styling, and Node.js backend with real-time WebSocket connections.</p>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Impact & Results</h3>
+                        <p style="color: #64748b;">Increased user engagement by 65% and reduced time-to-insight by 40%. Users reported 85% satisfaction with the new interface design.</p>
+                    </div>
+                `
+            },
+            project2: {
+                title: "Mobile Commerce",
+                details: `
+                    <h2 style="color: #0f172a; margin-bottom: 2rem;">Mobile Commerce Experience</h2>
+                    <div style="margin: 2rem 0; line-height: 1.7;">
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Project Overview</h3>
+                        <p style="color: #64748b; margin-bottom: 2rem;">A complete reimagining of the mobile shopping experience, focusing on user journey optimization, accessibility, and conversion enhancement through thoughtful UX design.</p>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">User Experience Focus</h3>
+                        <ul style="margin-left: 1.5rem; color: #64748b; line-height: 1.8;">
+                            <li>Streamlined checkout process with guest options</li>
+                            <li>Personalized product recommendations using ML</li>
+                            <li>Advanced search with visual filters and suggestions</li>
+                            <li>Seamless social authentication and payments</li>
+                            <li>Offline-first PWA capabilities</li>
+                        </ul>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Design System</h3>
+                        <p style="color: #64748b; margin-bottom: 1rem;">Created a comprehensive design system with reusable components, consistent spacing, and a flexible color palette that scales across all touchpoints.</p>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Business Impact</h3>
+                        <p style="color: #64748b;">Achieved 45% increase in mobile conversion rates and 60% reduction in cart abandonment. Customer satisfaction scores improved by 30%.</p>
+                    </div>
+                `
+            },
+            project3: {
+                title: "Smart Interface",
+                details: `
+                    <h2 style="color: #0f172a; margin-bottom: 2rem;">Smart Interface System</h2>
+                    <div style="margin: 2rem 0; line-height: 1.7;">
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Project Overview</h3>
+                        <p style="color: #64748b; margin-bottom: 2rem;">An adaptive interface that learns from user behavior to provide personalized experiences while maintaining simplicity and elegance in design.</p>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Adaptive Features</h3>
+                        <ul style="margin-left: 1.5rem; color: #64748b; line-height: 1.8;">
+                            <li>Dynamic content prioritization based on usage patterns</li>
+                            <li>Contextual help and onboarding experiences</li>
+                            <li>Intelligent notification management</li>
+                            <li>Personalized dashboard layouts</li>
+                            <li>Predictive user flow optimization</li>
+                        </ul>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Technology Stack</h3>
+                        <p style="color: #64748b; margin-bottom: 1rem;">Vue.js with Composition API, Machine Learning models for behavior analysis, GraphQL for data management, and cloud-based analytics infrastructure.</p>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">User Outcomes</h3>
+                        <p style="color: #64748b;">Users completed tasks 50% faster and reported 80% higher satisfaction with the personalized experience. Reduced support tickets by 35%.</p>
+                    </div>
+                `
+            },
+            project4: {
+                title: "Digital Experience",
+                details: `
+                    <h2 style="color: #0f172a; margin-bottom: 2rem;">Immersive Digital Experience</h2>
+                    <div style="margin: 2rem 0; line-height: 1.7;">
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Project Overview</h3>
+                        <p style="color: #64748b; margin-bottom: 2rem;">A groundbreaking project that bridges digital and physical worlds through immersive storytelling, creating emotional connections between brands and users.</p>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Creative Approach</h3>
+                        <ul style="margin-left: 1.5rem; color: #64748b; line-height: 1.8;">
+                            <li>Interactive storytelling with branching narratives</li>
+                            <li>3D visualizations and spatial design elements</li>
+                            <li>Multi-sensory feedback and haptic interactions</li>
+                            <li>Augmented reality integration for enhanced engagement</li>
+                            <li>Cross-platform consistency and accessibility</li>
+                        </ul>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Technical Innovation</h3>
+                        <p style="color: #64748b; margin-bottom: 1rem;">Leveraging WebGL, Three.js, WebXR APIs, and progressive enhancement to deliver cutting-edge experiences that work across all devices and capabilities.</p>
+                        
+                        <h3 style="color: #6366f1; margin: 2rem 0 1rem; font-weight: 600;">Cultural Impact</h3>
+                        <p style="color: #64748b;">Featured in major design publications and increased brand awareness by 200%. Won multiple industry awards for innovation and user experience excellence.</p>
+                    </div>
+                `
+            }
+        };
+
+        // Modal functions
+        function openModal(projectId) {
+            const modal = document.getElementById('projectModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            if (projects[projectId]) {
+                modalBody.innerHTML = projects[projectId].details;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Email form
+        function sendEmail(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+            const body = encodeURIComponent(`Hi!\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\nBest regards,\n${name}`);
+            const mailtoLink = `mailto:your.email@example.com?subject=${subject}&body=${body}`;
+            
+            window.location.href = mailtoLink;
+            event.target.reset();
+            
+            // Success feedback
+            const button = event.target.querySelector('.submit-btn');
+            const originalText = button.textContent;
+            button.textContent = 'Message Sent!';
+            button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = 'linear-gradient(135deg, #1e293b, #0f172a)';
+            }, 2000);
+        }
+
+        // Navbar scroll effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.9)';
+                nav.style.boxShadow = 'none';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe project cards for animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
